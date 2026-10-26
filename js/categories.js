@@ -318,6 +318,106 @@
     root.innerHTML = html;
   }
 
+  function catalogListHtml(extraClass) {
+    var html =
+      '<a class="' +
+      (extraClass || "") +
+      '" href="catalog.html">Весь каталог</a>';
+    items.forEach(function (row) {
+      var item = byId[row[0]];
+      html +=
+        '<a class="' +
+        (extraClass || "") +
+        '" href="' +
+        productHref(item.id) +
+        '">' +
+        escapeHtml(item.title) +
+        "</a>";
+    });
+    return html;
+  }
+
+  function isCatalogHref(href) {
+    if (!href) return false;
+    return /catalog\.html(?:#|$)/.test(href) || /#katalog\b/.test(href);
+  }
+
+  function mountNav() {
+    document.querySelectorAll("a.bar-link").forEach(function (link) {
+      if (!isCatalogHref(link.getAttribute("href"))) return;
+      if (link.closest(".nav-drop")) return;
+
+      var wrap = document.createElement("div");
+      wrap.className = "nav-drop";
+      link.parentNode.insertBefore(wrap, link);
+      wrap.appendChild(link);
+
+      var chevron = document.createElement("button");
+      chevron.type = "button";
+      chevron.className = "nav-drop-chevron";
+      chevron.setAttribute("aria-label", "Все категории каталога");
+      chevron.setAttribute("aria-expanded", "false");
+      chevron.setAttribute("aria-haspopup", "true");
+      chevron.innerHTML =
+        '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      wrap.appendChild(chevron);
+
+      var panel = document.createElement("div");
+      panel.className = "nav-drop-panel";
+      panel.setAttribute("role", "menu");
+      panel.innerHTML = catalogListHtml();
+      wrap.appendChild(panel);
+
+      function setOpen(open) {
+        wrap.classList.toggle("is-open", open);
+        chevron.setAttribute("aria-expanded", open ? "true" : "false");
+      }
+
+      var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+      wrap.addEventListener("mouseenter", function () {
+        if (finePointer.matches) setOpen(true);
+      });
+      wrap.addEventListener("mouseleave", function () {
+        if (finePointer.matches) setOpen(false);
+      });
+      wrap.addEventListener("focusin", function () {
+        setOpen(true);
+      });
+      wrap.addEventListener("focusout", function (event) {
+        if (!wrap.contains(event.relatedTarget)) setOpen(false);
+      });
+      /* Touch / coarse pointer: tap chevron */
+      chevron.addEventListener("click", function (event) {
+        if (finePointer.matches) return;
+        event.preventDefault();
+        event.stopPropagation();
+        setOpen(!wrap.classList.contains("is-open"));
+      });
+      document.addEventListener("click", function (event) {
+        if (!finePointer.matches && !wrap.contains(event.target)) setOpen(false);
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") setOpen(false);
+      });
+    });
+
+    var mobile = document.getElementById("nav");
+    if (mobile && !mobile.querySelector(".nav-cats")) {
+      var catalogLink = null;
+      Array.prototype.forEach.call(mobile.children, function (el) {
+        if (!catalogLink && el.tagName === "A" && isCatalogHref(el.getAttribute("href"))) {
+          catalogLink = el;
+        }
+      });
+      if (catalogLink) {
+        var box = document.createElement("div");
+        box.className = "nav-cats";
+        box.innerHTML = catalogListHtml();
+        catalogLink.insertAdjacentElement("afterend", box);
+      }
+    }
+  }
+
   global.SklonCatalog = {
     groups: groups,
     sections: sections,
@@ -329,6 +429,7 @@
       return byId[resolveId(id)];
     },
     productHref: productHref,
-    mount: mount
+    mount: mount,
+    mountNav: mountNav
   };
 })(window);

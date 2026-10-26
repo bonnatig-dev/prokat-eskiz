@@ -2,6 +2,21 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) document.documentElement.classList.add("js");
 
+  function withCatalog(done) {
+    if (window.SklonCatalog) {
+      done();
+      return;
+    }
+    var script = document.createElement("script");
+    script.src = "js/categories.js";
+    script.onload = done;
+    document.head.appendChild(script);
+  }
+
+  withCatalog(function () {
+    if (window.SklonCatalog && SklonCatalog.mountNav) SklonCatalog.mountNav();
+  });
+
   var burger = document.querySelector(".burger");
   var nav = document.getElementById("nav");
   if (burger && nav) {

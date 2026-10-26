@@ -152,6 +152,86 @@ button, input, select, textarea { font: inherit; }
   display: none;
 }
 
+/* Catalog dropdown in header */
+.nav-drop {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.nav-drop-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-left: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  opacity: 0.9;
+  transition: transform 180ms var(--ease), opacity 160ms ease;
+}
+.nav-drop-chevron:hover,
+.nav-drop.is-open .nav-drop-chevron {
+  opacity: 1;
+}
+.nav-drop.is-open .nav-drop-chevron {
+  transform: rotate(180deg);
+}
+.nav-drop-panel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 40;
+  width: max(680px, min(900px, 78vw));
+  padding: 18px 8px 16px;
+  background: var(--paper);
+  color: var(--paper-ink);
+  border: 1px solid var(--paper-surface);
+  box-shadow: 0 18px 48px rgba(24, 25, 27, 0.2);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px 8px;
+}
+/* Bridge: padding-top keeps cursor inside the panel while moving down */
+.nav-drop.is-open .nav-drop-panel,
+.nav-drop:hover .nav-drop-panel,
+.nav-drop:focus-within .nav-drop-panel {
+  display: grid;
+}
+.nav-drop-panel a {
+  display: block;
+  padding: 7px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--paper-ink);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.nav-drop-panel a:hover,
+.nav-drop-panel a:focus-visible {
+  background: var(--paper-surface);
+}
+.nav-drop-panel a:first-child {
+  grid-column: 1 / -1;
+  font-weight: 600;
+  border-bottom: 1px solid var(--paper-surface);
+  margin: 0 8px 6px;
+  padding: 6px 10px 12px;
+}
+.site-page .nav-drop-chevron,
+.product-page .nav-drop-chevron {
+  color: var(--paper-ink);
+}
+.nav-cats {
+  display: none;
+}
+
 /* ——— Hero ——— */
 .hero {
   position: relative;
@@ -1085,6 +1165,7 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 980px) {
   .archive { grid-template-columns: 1fr; gap: 0; }
   .bar-link { display: none; }
+  .nav-drop { display: none; }
   .burger { display: inline-flex; margin-left: 8px; }
   .nav-panel.is-open {
     display: flex;
@@ -1102,6 +1183,25 @@ button, input, select, textarea { font: inherit; }
     font-weight: 600;
     padding: 14px 0;
     border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .nav-panel.is-open .nav-cats {
+    display: grid;
+    max-height: 42vh;
+    overflow: auto;
+    margin: 0 0 8px;
+    padding: 0 0 8px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .nav-panel.is-open .nav-cats a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 9px 0;
+    color: rgba(255,255,255,.78);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .nav-panel.is-open .nav-cats a:first-child {
+    font-weight: 600;
+    color: #fff;
   }
   .nav-panel.is-open .btn {
     margin-top: 20px;
