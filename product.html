@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#18191b">
+  <title>Карточка товара. Склон</title>
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body class="site-page">
+<a class="skip" href="#main">К содержанию</a>
+
+<header class="bar">
+  <a class="logo" href="index.html">Склон</a>
+  <a class="bar-link" href="catalog.html">Каталог</a>
+  <a class="bar-link" href="index.html#prokat">Прокат</a>
+  <a class="bar-link" href="blog.html">Блог</a>
+  <a class="bar-link" href="index.html#kontakty">Контакты</a>
+  <span class="spacer"></span>
+  <a class="bar-link phone-link" href="tel:+375290000000">+375 29 000-00-00</a>
+  <button class="btn" type="button" data-open-book>Забронировать</button>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="nav">Меню</button>
+</header>
+<nav class="nav-panel" id="nav" aria-label="Разделы">
+  <a href="catalog.html">Каталог</a>
+  <a href="index.html#prokat">Прокат</a>
+  <a href="blog.html">Блог</a>
+  <a href="index.html#kontakty">Контакты</a>
+  <a href="tel:+375290000000">+375 29 000-00-00</a>
+  <button class="btn" type="button" data-open-book>Забронировать</button>
+</nav>
+
+<main id="main" data-product>
+  <article class="pdp">
+    <div class="pdp-media">
+      <img data-field="photo" src="assets/gear/snowboard-rental.jpg" alt="">
+    </div>
+    <div class="pdp-side">
+      <p class="cat" data-field="cat">Сноуборды · Rental</p>
+      <h1 data-field="name">Practic LUX 90</h1>
+      <p class="from" data-field="price">от 58 руб. / сутки</p>
+      <p class="field-label">Размер</p>
+      <div class="sizes" data-sizes role="group" aria-label="Размеры"></div>
+      <p class="field-label">Срок</p>
+      <div class="choices" role="group" aria-label="Срок аренды">
+        <button type="button" data-term="day" aria-pressed="true">Сутки</button>
+        <button type="button" data-term="weekend" aria-pressed="false">Выходные</button>
+        <button type="button" data-term="week" aria-pressed="false">Неделя</button>
+      </div>
+      <ul class="specs">
+        <li><span>Уровень</span><span data-field="level">Начинающий</span></li>
+        <li><span>Размер</span><span data-field="size">145–160 см</span></li>
+        <li><span>Назначение</span><span data-field="use">Трасса</span></li>
+        <li><span>Возраст</span><span data-field="age">Взрослые</span></li>
+        <li><span>Комплектация</span><span data-field="kit">Доска и крепления</span></li>
+      </ul>
+      <div class="product-actions">
+        <button class="btn" type="button" data-open-book>Забронировать</button>
+        <a class="text-link" href="tel:+375290000000">Заказать звонок</a>
+      </div>
+      <div class="related" data-related aria-label="Вам также может подойти"></div>
+    </div>
+  </article>
+</main>
+
+<script src="js/categories.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

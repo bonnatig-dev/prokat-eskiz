@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Направление 1 — Предмет на снегу</title>
+  <style>
+    @font-face {
+      font-family: Manrope;
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url("assets/fonts/manrope-cyrillic.woff2") format("woff2");
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
+      font-family: Manrope;
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url("assets/fonts/manrope-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+    }
+    :root {
+      --bg: #F5F7F8;
+      --surface: #E8EEF0;
+      --ink: #1A2428;
+      --muted: #5A676E;
+      --accent: #2B5C8A;
+      --accent-ink: #fff;
+      --m: clamp(16px, 2.4vw, 40px);
+      --font: Manrope, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 17px;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .compare {
+      position: sticky; top: 0; z-index: 40;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      padding: 10px var(--m);
+      background: #1A2428; color: #fff;
+      font-size: 13px;
+    }
+    .compare strong { font-weight: 600; margin-right: 8px; }
+    .compare a {
+      padding: 6px 12px; border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.7);
+    }
+    .compare a.is-on { background: #fff; color: #1A2428; border-color: #fff; }
+    .bar {
+      display: flex; align-items: center; gap: 24px;
+      padding: 20px var(--m);
+    }
+    .logo { font-size: 18px; font-weight: 600; letter-spacing: -0.03em; }
+    .bar .spacer { flex: 1; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 22px;
+      background: var(--accent); color: var(--accent-ink);
+      font-size: 15px; font-weight: 600;
+    }
+    .btn.ghost {
+      background: transparent; color: var(--ink);
+      box-shadow: inset 0 0 0 1px var(--ink);
+    }
+    .link { font-size: 15px; font-weight: 600; border-bottom: 1px solid currentColor; }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.9fr) minmax(280px, 1.1fr);
+      gap: 24px;
+      min-height: calc(100svh - 110px);
+      padding: 0 var(--m) 48px;
+      align-items: center;
+    }
+    .hero-copy h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 4.2vw, 3.4rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .hero-copy p {
+      margin: 0 0 28px;
+      max-width: 34ch;
+      color: var(--muted);
+      font-size: 18px;
+    }
+    .hero-object {
+      position: relative;
+      height: min(78svh, 720px);
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .hero-object img {
+      position: absolute;
+      width: 125%;
+      height: 125%;
+      object-fit: contain;
+      object-position: 55% 40%;
+      left: -8%;
+      top: -5%;
+      mix-blend-mode: multiply;
+    }
+    .section { padding: 72px var(--m); }
+    .section-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 16px; margin-bottom: 28px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+    }
+    .group + .group { margin-top: 56px; }
+    .group h3 {
+      margin: 0 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .grid4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .card {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .card-media {
+      aspect-ratio: 4/5;
+      background: #fff;
+      overflow: hidden;
+    }
+    .card-media img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      transform: scale(1.08);
+    }
+    .card h4 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .card .note { margin: 0; font-size: 14px; color: var(--muted); }
+    .card .price { margin: 0; font-size: 16px; font-variant-numeric: tabular-nums; }
+    .pdp {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      padding: 72px var(--m);
+      background: #fff;
+    }
+    .pdp-media {
+      min-height: 560px;
+      background: var(--bg);
+      display: grid; place-items: center;
+      overflow: hidden;
+    }
+    .pdp-media img {
+      width: 85%;
+      mix-blend-mode: multiply;
+    }
+    .thumbs { display: flex; gap: 10px; margin-top: 12px; }
+    .thumbs span {
+      width: 72px; height: 72px; background: var(--bg);
+      display: grid; place-items: center; overflow: hidden;
+    }
+    .thumbs img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+    .pdp-copy .cat {
+      margin: 0 0 8px;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .pdp-copy h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+    }
+    .pdp-copy .from {
+      margin: 0 0 28px;
+      font-size: 22px;
+      font-variant-numeric: tabular-nums;
+    }
+    .specs {
+      list-style: none; margin: 0 0 32px; padding: 0;
+      display: grid; gap: 10px;
+    }
+    .specs li {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 12px; font-size: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--surface);
+    }
+    .specs span { color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .note-bar {
+      padding: 20px var(--m) 40px;
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: 32px; }
+      .hero-object { height: 50svh; order: -1; }
+      .grid4 { grid-template-columns: 1fr 1fr; }
+      .pdp { grid-template-columns: 1fr; gap: 24px; }
+      .pdp-media { min-height: 360px; }
+    }
+    @media (max-width: 560px) {
+      .grid4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="compare" aria-label="Сравнение направлений">
+    <strong>Сравнение:</strong>
+    <a class="is-on" href="direction-1.html">1. Предмет на снегу</a>
+    <a href="direction-2.html">2. Склон в кадре</a>
+    <a href="direction-3.html">3. Городской стол выдачи</a>
+  </nav>
+
+  <header class="bar">
+    <a class="logo" href="direction-1.html">Склон</a>
+    <span class="spacer"></span>
+    <a class="btn" href="#pdp">Забронировать</a>
+  </header>
+
+  <section class="hero" aria-label="Hero">
+    <div class="hero-copy">
+      <h1>Прокат лыж<br>и сноубордов</h1>
+      <p>Один комплект на день катания — для новичка, любителя и сезонного райдера.</p>
+      <a class="btn" href="#katalog">Выбрать снаряжение</a>
+    </div>
+    <div class="hero-object">
+      <img src="assets/gear/snowboard-rental.jpg" alt="Сноуборд Rental крупно" width="800" height="1000">
+    </div>
+  </section>
+
+  <section class="section" id="katalog">
+    <div class="section-head">
+      <h2>Каталог</h2>
+      <a class="link" href="#katalog">Все категории</a>
+    </div>
+
+    <div class="group">
+      <h3>Сноуборды</h3>
+      <div class="grid4">
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-rental.jpg" alt=""></div>
+          <h4>Rental</h4>
+          <p class="note">Для первых выездов</p>
+          <p class="price">от 58 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-standard.jpg" alt=""></div>
+          <h4>Standard</h4>
+          <p class="note">Уверенный любительский уровень</p>
+          <p class="price">от 68 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-allmountain.jpg" alt=""></div>
+          <h4>All Mountain</h4>
+          <p class="note">Универсал по трассе</p>
+          <p class="price">от 78 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-freeride.jpg" alt=""></div>
+          <h4>Freeride</h4>
+          <p class="note">Свободное катание</p>
+          <p class="price">от 88 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>Горные лыжи</h3>
+      <div class="grid4">
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-rental.jpg" alt=""></div>
+          <h4>Rental</h4>
+          <p class="note">Мягкий прокатный класс</p>
+          <p class="price">от 54 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-standard.jpg" alt=""></div>
+          <h4>Standard</h4>
+          <p class="note">Стабильная трасса</p>
+          <p class="price">от 64 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-allmountain.jpg" alt=""></div>
+          <h4>All Mountain</h4>
+          <p class="note">Шире сценарии катания</p>
+          <p class="price">от 74 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-freeride.jpg" alt=""></div>
+          <h4>Freeride</h4>
+          <p class="note">Вне подготовленных трасс</p>
+          <p class="price">от 84 руб.</p>
+          <a class="link" href="#pdp">Посмотреть</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="pdp" id="pdp" aria-label="Карточка товара">
+    <div>
+      <div class="pdp-media">
+        <img src="assets/gear/snowboard-rental.jpg" alt="Practic LUX 90">
+      </div>
+      <div class="thumbs">
+        <span><img src="assets/gear/snowboard-rental.jpg" alt=""></span>
+        <span><img src="assets/gear/boots.jpg" alt=""></span>
+        <span><img src="assets/gear/helmet.jpg" alt=""></span>
+      </div>
+    </div>
+    <div class="pdp-copy">
+      <p class="cat">Сноуборды · Rental</p>
+      <h2>Practic LUX 90</h2>
+      <p class="from">от 58 руб. / сутки</p>
+      <ul class="specs">
+        <li><span>Уровень</span> Новичок</li>
+        <li><span>Размеры</span> 148 · 152 · 156 · 160</li>
+        <li><span>Назначение</span> Трасса, обучение</li>
+        <li><span>Комплектация</span> Доска + крепления</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="#pdp">Забронировать</a>
+        <a class="btn ghost" href="#pdp">Заказать звонок</a>
+      </div>
+    </div>
+  </section>
+
+  <p class="note-bar">
+    Направление 1 · «Предмет на снегу». Идея: прокат объясняется крупным предметом на холодном поле; каталог — та же предметная витрина. Цены в эскизе — примеры из ТЗ, не прайс клиента.
+  </p>
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Направление 3 — Городской стол выдачи</title>
+  <style>
+    @font-face {
+      font-family: Manrope;
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url("assets/fonts/manrope-cyrillic.woff2") format("woff2");
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    @font-face {
+      font-family: Manrope;
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: swap;
+      src: url("assets/fonts/manrope-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122;
+    }
+    :root {
+      --bg: #F3F4F5;
+      --surface: #E7E9EB;
+      --ink: #1C1F22;
+      --muted: #5E646A;
+      --accent: #C45C26;
+      --accent-ink: #fff;
+      --m: clamp(16px, 2.2vw, 32px);
+      --font: Manrope, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .compare {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      padding: 10px var(--m);
+      background: #1C1F22; color: #fff;
+      font-size: 13px;
+    }
+    .compare strong { font-weight: 600; margin-right: 8px; }
+    .compare a {
+      padding: 6px 12px; border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.7);
+    }
+    .compare a.is-on { background: #fff; color: #1C1F22; border-color: #fff; }
+    .desk {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100svh - 44px);
+    }
+    .desk-stage {
+      position: sticky;
+      top: 44px;
+      height: calc(100svh - 44px);
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .desk-stage img {
+      position: absolute;
+      inset: 0;
+      width: 130%;
+      height: 130%;
+      object-fit: contain;
+      object-position: 50% 45%;
+      left: -12%;
+      top: -8%;
+      mix-blend-mode: multiply;
+      opacity: 0;
+      transition: opacity .6s ease;
+    }
+    .desk-stage img.is-on { opacity: 1; }
+    .desk-copy {
+      padding: clamp(28px, 5vw, 56px) var(--m);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+      background: var(--bg);
+    }
+    .logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    .desk-copy h1 {
+      margin: 0 0 14px;
+      font-size: clamp(1.7rem, 2.8vw, 2.35rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+    }
+    .desk-copy .lead {
+      margin: 0 0 22px;
+      max-width: 38ch;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .phone {
+      display: block;
+      margin-bottom: 22px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 20px;
+      background: var(--accent); color: var(--accent-ink);
+      font-size: 15px; font-weight: 600;
+      width: fit-content;
+    }
+    .anchors {
+      display: flex; flex-wrap: wrap; gap: 10px 18px;
+      margin-top: 28px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .anchors a { border-bottom: 1px solid currentColor; }
+    .section { padding: 56px var(--m); }
+    .group { margin-bottom: 48px; }
+    .group-head {
+      display: grid;
+      grid-template-columns: minmax(140px, 220px) 1fr;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+    .group-head h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2vw, 1.7rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .group-head p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .grid4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .card {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--surface);
+    }
+    .card-media {
+      aspect-ratio: 1;
+      background: #fff;
+      overflow: hidden;
+    }
+    .card-media img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    .card-meta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4px 10px;
+      align-items: baseline;
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      grid-column: 1;
+    }
+    .card .price {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .card .more {
+      grid-column: 1 / -1;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .archive {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 40px;
+      margin-top: 20px;
+      border-top: 1px solid var(--surface);
+    }
+    .archive a {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--surface);
+      font-size: 14px;
+    }
+    .archive span:last-child { color: var(--muted); font-weight: 600; }
+    .pdp {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 32px;
+      padding: 56px var(--m);
+      background: #fff;
+    }
+    .pdp-media {
+      min-height: 480px;
+      background: var(--bg);
+      display: grid; place-items: center;
+    }
+    .pdp-media img { width: 72%; mix-blend-mode: multiply; }
+    .pdp-side {
+      position: sticky;
+      top: 64px;
+      align-self: start;
+    }
+    .pdp-side .cat {
+      margin: 0 0 6px;
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .pdp-side h2 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .pdp-side .from {
+      margin: 0 0 20px;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .sizes {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 22px;
+    }
+    .sizes button {
+      min-width: 52px; min-height: 40px;
+      border: 1px solid var(--surface);
+      background: var(--bg);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .sizes button.is-on {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #fff;
+    }
+    .specs {
+      list-style: none; margin: 0 0 24px; padding: 0;
+    }
+    .specs li {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--surface);
+      font-size: 14px;
+    }
+    .specs span { color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn.ghost {
+      background: transparent; color: var(--ink);
+      box-shadow: inset 0 0 0 1px var(--ink);
+    }
+    .related {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--surface);
+    }
+    .related a {
+      display: grid; gap: 6px;
+      font-size: 13px; font-weight: 600;
+    }
+    .related span {
+      aspect-ratio: 1; background: var(--bg); overflow: hidden;
+    }
+    .related img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    .footer-shot {
+      height: 220px;
+      overflow: hidden;
+    }
+    .footer-shot img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.15);
+    }
+    .note-bar {
+      padding: 20px var(--m) 40px;
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+    @media (max-width: 900px) {
+      .desk { grid-template-columns: 1fr; min-height: auto; }
+      .desk-stage {
+        position: relative; top: auto;
+        height: 45svh;
+      }
+      .group-head { grid-template-columns: 1fr; gap: 8px; }
+      .grid4 { grid-template-columns: 1fr 1fr; }
+      .archive { grid-template-columns: 1fr; }
+      .pdp { grid-template-columns: 1fr; }
+      .pdp-side { position: static; }
+      .pdp-media { min-height: 320px; }
+      .related { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .grid4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="compare" aria-label="Сравнение направлений">
+    <strong>Сравнение:</strong>
+    <a href="direction-1.html">1. Предмет на снегу</a>
+    <a href="direction-2.html">2. Склон в кадре</a>
+    <a class="is-on" href="direction-3.html">3. Городской стол выдачи</a>
+  </nav>
+
+  <section class="desk" aria-label="Hero — стол выдачи">
+    <div class="desk-stage" data-stage>
+      <img class="is-on" src="assets/gear/snowboard-rental.jpg" alt="Сноуборд на стойке" width="800" height="1000">
+      <img src="assets/gear/skis-rental.jpg" alt="Лыжи на стойке" width="800" height="1000">
+      <img src="assets/gear/helmet.jpg" alt="Шлем на стойке" width="800" height="1000">
+    </div>
+    <div class="desk-copy">
+      <a class="logo" href="direction-3.html">Склон · прокат</a>
+      <h1>Прокат лыж и сноубордов</h1>
+      <p class="lead">Выдача комплекта перед выездом: выберите класс, размер и оставьте заявку.</p>
+      <a class="phone" href="tel:+375290000000">+375 29 000-00-00</a>
+      <a class="btn" href="#pdp">Забронировать</a>
+      <nav class="anchors" aria-label="Группы каталога">
+        <a href="#snow">Сноуборды</a>
+        <a href="#ski">Лыжи</a>
+        <a href="#protect">Защита</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section" id="katalog">
+    <div class="group" id="snow">
+      <div class="group-head">
+        <div>
+          <h2>Сноуборды</h2>
+          <p>4 класса в ряду</p>
+        </div>
+      </div>
+      <div class="grid4">
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-rental.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Rental</h3>
+            <p class="price">от 58</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-standard.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Standard</h3>
+            <p class="price">от 68</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-allmountain.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>All Mountain</h3>
+            <p class="price">от 78</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/snowboard-freeride.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Freeride</h3>
+            <p class="price">от 88</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+      </div>
+      <div class="archive" aria-label="Дополнительные позиции без фото">
+        <a href="#pdp"><span>Ботинки Rental</span><span>от 28</span></a>
+        <a href="#pdp"><span>Ботинки Standard</span><span>от 34</span></a>
+        <a href="#pdp"><span>SpeedZone</span><span>от 38</span></a>
+        <a href="#pdp"><span>Boa / 2Boa</span><span>от 42</span></a>
+      </div>
+    </div>
+
+    <div class="group" id="ski">
+      <div class="group-head">
+        <div>
+          <h2>Горные лыжи</h2>
+          <p>Тот же шаблон карточек</p>
+        </div>
+      </div>
+      <div class="grid4">
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-rental.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Rental</h3>
+            <p class="price">от 54</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-standard.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Standard</h3>
+            <p class="price">от 64</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-allmountain.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>All Mountain</h3>
+            <p class="price">от 74</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/skis-freeride.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Freeride</h3>
+            <p class="price">от 84</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="group" id="protect">
+      <div class="group-head">
+        <div>
+          <h2>Защита</h2>
+          <p>Компактный ряд</p>
+        </div>
+      </div>
+      <div class="grid4">
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/helmet.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Шлем</h3>
+            <p class="price">от 18</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/goggles.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Маска</h3>
+            <p class="price">от 14</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/gloves.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Перчатки</h3>
+            <p class="price">от 12</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-media"><img src="assets/gear/jacket.jpg" alt=""></div>
+          <div class="card-meta">
+            <h3>Куртка</h3>
+            <p class="price">от 36</p>
+            <a class="more" href="#pdp">Посмотреть</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="pdp" id="pdp" aria-label="Карточка товара">
+    <div class="pdp-media">
+      <img src="assets/gear/snowboard-rental.jpg" alt="Practic LUX 90">
+    </div>
+    <div class="pdp-side">
+      <p class="cat">Сноуборды · Rental</p>
+      <h2>Practic LUX 90</h2>
+      <p class="from">от 58 руб. / сутки</p>
+      <div class="sizes" role="group" aria-label="Размеры">
+        <button type="button">148</button>
+        <button type="button" class="is-on">152</button>
+        <button type="button">156</button>
+        <button type="button">160</button>
+      </div>
+      <ul class="specs">
+        <li><span>Уровень</span> Новичок</li>
+        <li><span>Назначение</span> Трасса, обучение</li>
+        <li><span>Комплектация</span> Доска + крепления</li>
+        <li><span>Срок</span> Сутки</li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="#pdp">Забронировать</a>
+        <a class="btn ghost" href="#pdp">Заказать звонок</a>
+      </div>
+      <div class="related" aria-label="Похожие">
+        <a href="#pdp"><span><img src="assets/gear/boots.jpg" alt=""></span>Ботинки</a>
+        <a href="#pdp"><span><img src="assets/gear/helmet.jpg" alt=""></span>Шлем</a>
+        <a href="#pdp"><span><img src="assets/gear/goggles.jpg" alt=""></span>Маска</a>
+        <a href="#pdp"><span><img src="assets/gear/gloves.jpg" alt=""></span>Перчатки</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-shot" aria-hidden="true">
+    <img src="assets/photos/ski-resort-soelden-p1032612.jpg" alt="" width="1920" height="1440">
+  </div>
+
+  <p class="note-bar">
+    Направление 3 · «Городской стол выдачи». Идея: слева стойка с предметом, справа выбор и заявка; каталог как архив позиций. Цены — примеры из ТЗ.
+  </p>
+
+  <script>
+    (function () {
+      var stage = document.querySelector("[data-stage]");
+      if (!stage) return;
+      var frames = Array.prototype.slice.call(stage.querySelectorAll("img"));
+      if (frames.length < 2) return;
+      var i = 0;
+      setInterval(function () {
+        frames[i].classList.remove("is-on");
+        i = (i + 1) % frames.length;
+        frames[i].classList.add("is-on");
+      }, 3200);
+    })();
+  </script>
+</body>
+</html>
