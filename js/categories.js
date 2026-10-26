@@ -1,20 +1,15 @@
-/* All 35 categories from Категории.docx — single source for sketch pages. */
+/* Snowboard-only catalog — categories for sketch pages. */
 (function (global) {
   var img = {
     sbRental: "assets/gear/snowboard-rental.jpg",
     sbStandard: "assets/gear/snowboard-standard.jpg",
     sbAll: "assets/gear/snowboard-allmountain.jpg",
     sbFree: "assets/gear/snowboard-freeride.jpg",
-    skiRental: "assets/gear/skis-rental.jpg",
-    skiStandard: "assets/gear/skis-standard.jpg",
-    skiAll: "assets/gear/skis-allmountain.jpg",
-    skiFree: "assets/gear/skis-freeride.jpg",
     boots: "assets/gear/boots.jpg",
     jacket: "assets/gear/jacket.jpg",
     helmet: "assets/gear/helmet.jpg",
     goggles: "assets/gear/goggles.jpg",
     gloves: "assets/gear/gloves.jpg",
-    poles: "assets/gear/skis-standard.jpg",
     pants: "assets/gear/jacket.jpg",
     suit: "assets/gear/jacket.jpg",
     shorts: "assets/gear/helmet.jpg",
@@ -23,11 +18,10 @@
     knee: "assets/gear/gloves.jpg",
     wrist: "assets/gear/goggles.jpg",
     bagSb: "assets/gear/snowboard-standard.jpg",
-    bagSki: "assets/gear/skis-allmountain.jpg",
     bagBoot: "assets/gear/boots.jpg"
   };
 
-  /* id, title, group, blurb, priceFrom (BYN/day example), photo, level, sizeLabel, use, age, kit, sizesCsv */
+  /* id, title, group, blurb, priceFrom, photo, level, sizeLabel, use, age, kit, sizesCsv */
   var items = [
     ["sb-rental", "Сноуборды Rental", "snowboards", "Мягкая доска для первых спусков.", "58", img.sbRental, "Начинающий", "145–160 см", "Трасса, обучение", "Взрослые", "Доска и крепления", "145,150,155,160"],
     ["sb-standard", "Сноуборды Standard", "snowboards", "На подготовленную трассу.", "74", img.sbStandard, "Любитель", "150–162 см", "Подготовленная трасса", "Взрослые", "Доска и крепления", "150,154,158,162"],
@@ -42,25 +36,13 @@
     ["boot-2boa", "Ботинки 2Boa", "sb-boots", "Два диска Boa.", "40", img.boots, "Любитель", "36–45", "Трасса и парк", "Взрослые", "Пара ботинок", "38,40,42,44"],
     ["boot-kids", "Ботинки детские", "sb-boots", "Детские размеры под доску.", "18", img.boots, "Начинающий", "28–36", "Обучение", "Дети", "Пара ботинок", "30,32,34,36"],
 
-    ["ski-rental", "Горные лыжи Rental", "skis", "Короче и мягче, для учёбы.", "54", img.skiRental, "Начинающий", "150–170 см", "Учебный склон", "Взрослые", "Лыжи и крепления", "150,160,170"],
-    ["ski-standard", "Горные лыжи Standard", "skis", "Спокойная подготовленная трасса.", "70", img.skiStandard, "Любитель", "155–175 см", "Подготовленная трасса", "Взрослые", "Лыжи и крепления", "155,165,175"],
-    ["ski-allmountain", "Горные лыжи All Mountain", "skis", "Трасса и разбитый снег.", "84", img.skiAll, "Любитель", "160–180 см", "Трасса и рельеф", "Взрослые", "Лыжи и крепления", "160,170,180"],
-    ["ski-freeride", "Горные лыжи Freeride", "skis", "Шире, когда снег глубокий.", "96", img.skiFree, "Опытный", "170–186 см", "Вне трассы", "Взрослые", "Лыжи и крепления", "170,178,186"],
-    ["ski-kids", "Горные лыжи детские", "skis", "Детская длина и мягкость.", "40", img.skiRental, "Начинающий", "90–140 см", "Учебный склон", "Дети", "Лыжи и крепления", "90,110,130,140"],
-
-    ["ski-boot-rental", "Горнолыжные ботинки Rental", "ski-boots", "Мягкие прокатные ботинки.", "24", img.boots, "Начинающий", "36–46", "Обучение", "Взрослые", "Пара ботинок", "38,40,42,44"],
-    ["ski-boot-standard", "Горнолыжные ботинки Standard", "ski-boots", "Средняя жёсткость на трассу.", "30", img.boots, "Любитель", "36–46", "Трасса", "Взрослые", "Пара ботинок", "38,40,42,44"],
-    ["ski-boot-hard", "Горнолыжные ботинки Hard", "ski-boots", "Жёсткая колодка для опытных.", "38", img.boots, "Опытный", "36–46", "Трасса", "Взрослые", "Пара ботинок", "38,40,42,44"],
-    ["ski-boot", "Горнолыжные ботинки", "ski-boots", "Базовая горнолыжная пара.", "32", img.boots, "Любитель", "36–46", "Трасса", "Взрослые", "Пара ботинок", "38,40,42,44"],
-    ["ski-poles", "Горнолыжные палки", "ski-boots", "Палки под рост.", "6", img.poles, "Любой", "110–135 см", "Трасса", "Взрослые / дети", "Пара палок", "110,120,125,135"],
-
     ["jacket", "Куртка для зимнего отдыха", "clothes", "Куртка на день на склоне.", "25", img.jacket, "Любой", "S–XL", "Зимний отдых", "Взрослые", "Куртка", "S,M,L,XL"],
-    ["pants", "Горнолыжные штаны", "clothes", "Штаны под куртку.", "20", img.pants, "Любой", "S–XL", "Склон", "Взрослые", "Штаны", "S,M,L,XL"],
-    ["suit", "Горнолыжный комбинезон", "clothes", "Цельный комбинезон.", "35", img.suit, "Любой", "S–XL", "Склон", "Взрослые", "Комбинезон", "S,M,L,XL"],
+    ["pants", "Штаны для сноуборда", "clothes", "Штаны под куртку.", "20", img.pants, "Любой", "S–XL", "Склон", "Взрослые", "Штаны", "S,M,L,XL"],
+    ["suit", "Комбинезон", "clothes", "Цельный комбинезон.", "35", img.suit, "Любой", "S–XL", "Склон", "Взрослые", "Комбинезон", "S,M,L,XL"],
 
-    ["helmet", "Горнолыжный шлем", "protect", "Шлем размеров S–L.", "12", img.helmet, "Любой", "S–L", "Склон", "Взрослые / дети", "Шлем", "S,M,L"],
-    ["goggles", "Лыжная маска", "protect", "Тёмная линза на ясный день.", "10", img.goggles, "Любой", "Один размер", "Склон", "Взрослые / дети", "Маска", "Универсальный"],
-    ["gloves", "Горнолыжные перчатки", "protect", "Тёплые, на полный день.", "8", img.gloves, "Любой", "S–L", "Склон", "Взрослые / дети", "Пара перчаток", "S,M,L"],
+    ["helmet", "Шлем", "protect", "Шлем размеров S–L.", "12", img.helmet, "Любой", "S–L", "Склон", "Взрослые / дети", "Шлем", "S,M,L"],
+    ["goggles", "Маска", "protect", "Тёмная линза на ясный день.", "10", img.goggles, "Любой", "Один размер", "Склон", "Взрослые / дети", "Маска", "Универсальный"],
+    ["gloves", "Перчатки", "protect", "Тёплые, на полный день.", "8", img.gloves, "Любой", "S–L", "Склон", "Взрослые / дети", "Пара перчаток", "S,M,L"],
     ["shorts", "Защитные шорты", "protect", "Защита таза и бёдер.", "10", img.shorts, "Любой", "S–L", "Парк и трасса", "Взрослые", "Шорты", "S,M,L"],
     ["back", "Защита для спины", "protect", "Жилет / панцирь на спину.", "12", img.back, "Любой", "S–L", "Склон", "Взрослые", "Защита спины", "S,M,L"],
     ["elbow", "Налокотники", "protect", "Пара налокотников.", "6", img.elbow, "Любой", "S–L", "Парк", "Взрослые / дети", "Пара", "S,M,L"],
@@ -68,21 +50,17 @@
     ["wrist", "Защита для запястий", "protect", "Защита запястий.", "5", img.wrist, "Любой", "S–L", "Сноуборд", "Взрослые / дети", "Пара", "S,M,L"],
 
     ["bag-sb", "Чехол для сноуборда", "bags", "Чехол под доску.", "8", img.bagSb, "Любой", "Под длину доски", "Перевозка", "Все", "Чехол", "Универсальный"],
-    ["bag-ski", "Чехол для горных лыж", "bags", "Чехол под пару лыж.", "8", img.bagSki, "Любой", "Под длину лыж", "Перевозка", "Все", "Чехол", "Универсальный"],
     ["bag-boots", "Чехол для ботинок", "bags", "Сумка / чехол для ботинок.", "5", img.bagBoot, "Любой", "Один размер", "Перевозка", "Все", "Чехол", "Универсальный"]
   ];
 
   var groups = [
-    { id: "snowboards", title: "Сноуборды", note: "Пять классов из файла категорий, включая детский." },
-    { id: "sb-boots", title: "Сноубордические ботинки", note: "Шесть позиций: Rental → 2Boa и детские." },
-    { id: "skis", title: "Горные лыжи", note: "Пять классов, включая детские." },
-    { id: "ski-boots", title: "Горнолыжные ботинки и комплектующие", note: "Ботинки Rental / Standard / Hard, ботинки и палки." },
+    { id: "snowboards", title: "Сноуборды", note: "Пять классов, включая детский." },
+    { id: "sb-boots", title: "Сноубордические ботинки", note: "Rental → 2Boa и детские." },
     { id: "clothes", title: "Одежда", note: "Куртка, штаны, комбинезон." },
     { id: "protect", title: "Защита и аксессуары", note: "Шлем, маска, перчатки и защита тела." },
-    { id: "bags", title: "Чехлы", note: "Для сноуборда, лыж и ботинок." }
+    { id: "bags", title: "Чехлы", note: "Для сноуборда и ботинок." }
   ];
 
-  /* Blocks for page: 4 photo cards + 4 archive rows in 2 columns (direction-3 pattern) */
   var sections = [
     {
       id: "snowboards",
@@ -92,32 +70,18 @@
       rows: ["boot-rental", "boot-standard", "boot-speedzone", "boot-boa"]
     },
     {
-      id: "skis",
-      title: "Горные лыжи",
+      id: "boots",
+      title: "Ботинки и чехлы",
       note: "4 класса в ряду",
-      cards: ["ski-rental", "ski-standard", "ski-allmountain", "ski-freeride"],
-      rows: ["ski-boot-rental", "ski-boot-standard", "ski-boot-hard", "ski-poles"]
-    },
-    {
-      id: "clothes",
-      title: "Одежда",
-      note: "4 класса в ряду",
-      cards: ["jacket", "pants", "suit", "gloves"],
-      rows: ["helmet", "goggles", "shorts", "back"]
-    },
-    {
-      id: "kids",
-      title: "Детское и чехлы",
-      note: "4 класса в ряду",
-      cards: ["sb-kids", "ski-kids", "boot-kids", "boot-2boa"],
-      rows: ["ski-boot", "bag-sb", "bag-ski", "bag-boots"]
+      cards: ["boot-2boa", "boot-kids", "sb-kids", "bag-sb"],
+      rows: ["bag-boots", "jacket", "pants", "suit"]
     },
     {
       id: "protect",
-      title: "Защита",
-      note: "3 позиции",
-      cards: ["elbow", "knee", "wrist"],
-      rows: []
+      title: "Защита и аксессуары",
+      note: "4 класса в ряду",
+      cards: ["helmet", "goggles", "gloves", "shorts"],
+      rows: ["back", "elbow", "knee", "wrist"]
     }
   ];
 
@@ -139,13 +103,14 @@
     };
   });
 
-  /* Legacy aliases used by older links on the sketch */
   var aliases = {
     rental: "sb-rental",
     standard: "sb-standard",
     allmountain: "sb-allmountain",
     freeride: "sb-freeride",
-    boots: "boot-rental"
+    boots: "boot-rental",
+    "ski-kids": "sb-kids",
+    "ski-rental": "sb-rental"
   };
 
   function resolveId(id) {
@@ -181,44 +146,21 @@
       "Ботинки Boa": "Boa / 2Boa",
       "Ботинки 2Boa": "2Boa",
       "Ботинки детские": "Детские",
-      "Горные лыжи Rental": "Rental",
-      "Горные лыжи Standard": "Standard",
-      "Горные лыжи All Mountain": "All Mountain",
-      "Горные лыжи Freeride": "Freeride",
-      "Горные лыжи детские": "Детские",
-      "Горнолыжные ботинки Rental": "Ботинки Rental",
-      "Горнолыжные ботинки Standard": "Ботинки Standard",
-      "Горнолыжные ботинки Hard": "Ботинки Hard",
-      "Горнолыжные ботинки": "Ботинки",
-      "Горнолыжные палки": "Палки",
       "Куртка для зимнего отдыха": "Куртка",
-      "Горнолыжные штаны": "Штаны",
-      "Горнолыжный комбинезон": "Комбинезон",
-      "Горнолыжный шлем": "Шлем",
-      "Лыжная маска": "Маска",
-      "Горнолыжные перчатки": "Перчатки",
+      "Штаны для сноуборда": "Штаны",
+      "Комбинезон": "Комбинезон",
+      "Шлем": "Шлем",
+      "Маска": "Маска",
+      "Перчатки": "Перчатки",
       "Защитные шорты": "Шорты",
       "Защита для спины": "Спина",
       "Налокотники": "Налокотники",
       "Наколенники": "Наколенники",
       "Защита для запястий": "Запястья",
-      "Чехол для сноуборда": "Сноуборд",
-      "Чехол для горных лыж": "Лыжи",
-      "Чехол для ботинок": "Ботинки"
+      "Чехол для сноуборда": "Чехол доски",
+      "Чехол для ботинок": "Чехол ботинок"
     };
     return map[t] || t;
-  }
-
-  function countLabel(n) {
-    var mod10 = n % 10;
-    var mod100 = n % 100;
-    var word =
-      mod10 === 1 && mod100 !== 11
-        ? "категория"
-        : mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)
-          ? "категории"
-          : "категорий";
-    return n + " " + word;
   }
 
   function cardHtml(item, variant) {
@@ -249,7 +191,6 @@
         "</a>"
       );
     }
-    /* d3 / site — archive card from direction 3 */
     return (
       '<a class="card" href="' + href + '">' +
       '<div class="card-media"><img src="' + photo + '" alt="' + title + '"></div>' +
@@ -386,7 +327,6 @@
       wrap.addEventListener("focusout", function (event) {
         if (!wrap.contains(event.relatedTarget)) setOpen(false);
       });
-      /* Touch / coarse pointer: tap chevron */
       chevron.addEventListener("click", function (event) {
         if (finePointer.matches) return;
         event.preventDefault();

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Варианты логотипа. Склон</title>
+  <link rel="stylesheet" href="css/site.css">
+  <style>
+    .logo-preview {
+      padding: 48px var(--margin) 80px;
+      min-height: 100vh;
+    }
+    .logo-preview h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+    .logo-preview .lead {
+      margin: 0 0 40px;
+      color: var(--paper-muted);
+      max-width: 42ch;
+    }
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .logo-card {
+      background: #fff;
+      border: 1px solid var(--paper-surface);
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .logo-card h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .logo-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--paper-muted);
+      line-height: 1.4;
+    }
+    .logo-stage {
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      background: #f7f7f8;
+      padding: 28px;
+    }
+    .logo-stage.dark {
+      background: #18191b;
+    }
+    .logo-stage img {
+      width: 100%;
+      height: auto;
+      max-height: 180px;
+      object-fit: contain;
+    }
+    .logo-stages {
+      display: grid;
+      gap: 10px;
+    }
+    @media (max-width: 900px) {
+      .logo-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="site-page">
+<a class="skip" href="#main">К содержанию</a>
+<header class="bar">
+  <a class="logo" href="index.html">Склон</a>
+  <a class="bar-link" href="catalog.html">Каталог</a>
+  <a class="bar-link" href="index.html#prokat">Прокат</a>
+  <a class="bar-link" href="blog.html">Блог</a>
+  <span class="spacer"></span>
+  <a class="bar-link" href="index.html">На главную</a>
+</header>
+
+<main id="main" class="paper logo-preview">
+  <h1>Три варианта логотипа</h1>
+  <p class="lead">Склон — прокат сноубордов. На светлом и тёмном фоне.</p>
+
+  <div class="logo-grid">
+    <article class="logo-card">
+      <h2>1. Wordmark</h2>
+      <p>Надпись с тропой в «О» и оранжевым кантом склона.</p>
+      <div class="logo-stages">
+        <div class="logo-stage"><img src="assets/logos/01-wordmark.jpg" alt="Логотип Склон, вариант 1, светлый фон"></div>
+        <div class="logo-stage dark"><img src="assets/logos/01-wordmark.jpg" alt="Логотип Склон, вариант 1, тёмный фон"></div>
+      </div>
+    </article>
+
+    <article class="logo-card">
+      <h2>2. Знак + слово</h2>
+      <p>Склон и доска в одной фигуре, оранжевый маяк у основания.</p>
+      <div class="logo-stages">
+        <div class="logo-stage"><img src="assets/logos/02-mark.jpg" alt="Логотип Склон, вариант 2, светлый фон"></div>
+        <div class="logo-stage dark"><img src="assets/logos/02-mark.jpg" alt="Логотип Склон, вариант 2, тёмный фон"></div>
+      </div>
+    </article>
+
+    <article class="logo-card">
+      <h2>3. Эмблема</h2>
+      <p>Круглый бейдж «СКЛОН · ПРОКАТ» для печати и точки выдачи.</p>
+      <div class="logo-stages">
+        <div class="logo-stage"><img src="assets/logos/03-badge.jpg" alt="Логотип Склон, вариант 3, светлый фон"></div>
+        <div class="logo-stage dark"><img src="assets/logos/03-badge.jpg" alt="Логотип Склон, вариант 3, тёмный фон"></div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<script src="js/site.js"></script>
+</body>
+</html>

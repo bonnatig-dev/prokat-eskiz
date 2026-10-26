@@ -94,12 +94,23 @@ button, input, select, textarea { font: inherit; }
   color: #fff;
 }
 .logo {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
   flex-shrink: 0;
+  line-height: 0;
 }
+.logo img {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+.logo .logo-on-dark { display: none; }
+.logo .logo-on-light { display: block; }
+/* Dark hero header / footer: white wordmark */
+body:not(.site-page):not(.product-page) .bar .logo .logo-on-light { display: none; }
+body:not(.site-page):not(.product-page) .bar .logo .logo-on-dark { display: block; }
+.footer-menu .logo .logo-on-light { display: none; }
+.footer-menu .logo .logo-on-dark { display: block; height: 30px; }
 .bar-link {
   font-size: 14px;
   font-weight: 500;

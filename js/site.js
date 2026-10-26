@@ -89,7 +89,7 @@
       '<form class="form" action="mailto:rent@sklon.example" method="post" enctype="text/plain">' +
       '<label>Имя <input name="name" type="text" autocomplete="name" required maxlength="80"></label>' +
       '<label>Телефон <input name="phone" type="tel" autocomplete="tel" required maxlength="32"></label>' +
-      '<label>Что необходимо <input name="need" type="text" required maxlength="200" placeholder="Сноуборд Rental + ботинки"></label>' +
+      '<label>Что необходимо <input name="need" type="text" required maxlength="200" placeholder="Сноуборд Standard + ботинки"></label>' +
       '<label>Дата проката <input name="date" type="date" required></label>' +
       '<p class="form-note" role="status"></p>' +
       '<button class="btn" type="submit">Отправить заявку</button>' +
@@ -165,6 +165,18 @@
     openBookModal();
   }
 
+  var logoHtml =
+    '<img class="logo-on-light" src="assets/logos/logo-sklon-on-light.png" alt="Склон" width="160" height="48">' +
+    '<img class="logo-on-dark" src="assets/logos/logo-sklon-on-dark.png" alt="Склон" width="160" height="48">';
+
+  function ensureLogos() {
+    document.querySelectorAll("a.logo").forEach(function (el) {
+      if (el.querySelector("img.logo-on-light")) return;
+      el.innerHTML = logoHtml;
+    });
+  }
+  ensureLogos();
+
   function siteFooterHtml() {
     return (
       '<footer class="footer">' +
@@ -172,7 +184,7 @@
       '<img src="assets/photos/rastkogel-ski-slope.jpg" alt="Склон крупным планом" width="1920" height="1280" loading="lazy">' +
       "</div>" +
       '<div class="footer-menu">' +
-      '<a class="logo" href="index.html">Склон</a>' +
+      '<a class="logo" href="index.html">' + logoHtml + "</a>" +
       '<nav aria-label="Подвал">' +
       '<a href="catalog.html">Каталог</a>' +
       '<a href="index.html#prokat">Прокат</a>' +
@@ -196,7 +208,10 @@
 
   (function ensureFooter() {
     var existing = document.querySelector("footer.footer");
-    if (existing && existing.querySelector(".footer-menu")) return;
+    if (existing && existing.querySelector(".footer-menu")) {
+      ensureLogos();
+      return;
+    }
     var wrap = document.createElement("div");
     wrap.innerHTML = siteFooterHtml();
     var footer = wrap.firstChild;
@@ -207,6 +222,7 @@
       if (anchor) document.body.insertBefore(footer, anchor);
       else document.body.appendChild(footer);
     }
+    ensureLogos();
   })();
 
   /* Dev-only stress dataset for break-ui (?stress=1) */
