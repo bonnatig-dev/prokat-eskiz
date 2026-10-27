@@ -86,7 +86,7 @@
       '<h2 id="book-title">Заявка на прокат</h2>' +
       "<p>Оставьте контакты и дату — подтвердим размеры и соберём комплект.</p>" +
       "</div>" +
-      '<form class="form" action="mailto:rent@sklon.example" method="post" enctype="text/plain">' +
+      '<form class="form" action="mailto:rent@prokat-snoubordov.example" method="post" enctype="text/plain">' +
       '<label>Имя <input name="name" type="text" autocomplete="name" required maxlength="80"></label>' +
       '<label>Телефон <input name="phone" type="tel" autocomplete="tel" required maxlength="32"></label>' +
       '<label>Что необходимо <input name="need" type="text" required maxlength="200" placeholder="Сноуборд Standard + ботинки"></label>' +
@@ -122,7 +122,7 @@
       var note = form.querySelector(".form-note");
       if (note) note.textContent = "Откроется письмо с заявкой. Почту заменим на рабочую.";
       window.location.href =
-        "mailto:rent@sklon.example?subject=" +
+        "mailto:rent@prokat-snoubordov.example?subject=" +
         encodeURIComponent("Бронь снаряжения") +
         "&body=" +
         encodeURIComponent(body);
@@ -165,14 +165,12 @@
     openBookModal();
   }
 
-  var logoHtml =
-    '<img class="logo-on-light" src="assets/logos/logo-sklon-on-light.png" alt="Склон" width="160" height="48">' +
-    '<img class="logo-on-dark" src="assets/logos/logo-sklon-on-dark.png" alt="Склон" width="160" height="48">';
+  var brandName = "Прокат сноубордов";
 
   function ensureLogos() {
     document.querySelectorAll("a.logo").forEach(function (el) {
-      if (el.querySelector("img.logo-on-light")) return;
-      el.innerHTML = logoHtml;
+      if (el.querySelector("img")) return;
+      el.textContent = brandName;
     });
   }
   ensureLogos();
@@ -184,7 +182,7 @@
       '<img src="assets/photos/rastkogel-ski-slope.jpg" alt="Склон крупным планом" width="1920" height="1280" loading="lazy">' +
       "</div>" +
       '<div class="footer-menu">' +
-      '<a class="logo" href="index.html">' + logoHtml + "</a>" +
+      '<a class="logo" href="index.html">' + brandName + '</a>' +
       '<nav aria-label="Подвал">' +
       '<a href="catalog.html">Каталог</a>' +
       '<a href="index.html#prokat">Прокат</a>' +
@@ -280,7 +278,7 @@
     set("[data-field='use']", item.use);
     set("[data-field='age']", item.age);
     set("[data-field='kit']", item.kit);
-    document.title = item.title + ". Склон";
+    document.title = item.title + ". Прокат сноубордов";
     var photo = product.querySelector("[data-field='photo']");
     if (photo) {
       if (item.photo) {

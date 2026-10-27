@@ -97,7 +97,11 @@ button, input, select, textarea { font: inherit; }
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  line-height: 0;
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 .logo img {
   display: block;
@@ -959,7 +963,7 @@ body:not(.site-page):not(.product-page) .bar .logo .logo-on-dark { display: bloc
   display: flex;
   flex-direction: column;
 }
-.footer-menu .logo { margin-bottom: 36px; }
+.footer-menu .logo { margin-bottom: 36px; font-size: 18px; font-weight: 700; }
 .footer-menu nav {
   display: flex;
   flex-direction: column;
